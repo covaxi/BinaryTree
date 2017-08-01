@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinaryTree.Interfaces
+namespace BinaryTree
 {
     /// <summary>
     /// An interface to serialize and deserialize a binary tree to or from Streams

@@ -18,7 +18,7 @@ namespace BinaryTree
         /// <param name="value">Value for the node</param>
         /// <param name="operation">An operation to perform on a node</param>
         /// <returns></returns>
-        ITree<T> Create(T value, Action<ITree<T>> operation = null);
+        ITree<T> Create(T value);
 
         /// <summary>
         /// Appends a node to a tree. Throws an IncorrectOperation exception if a parent tree already has a node on the selected position.
