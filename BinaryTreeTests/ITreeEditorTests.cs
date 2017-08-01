@@ -10,20 +10,12 @@ using System.Threading.Tasks;
 namespace BinaryTreeTests
 {
     [TestFixture]
-    public class ITreeEditorTests
+    public class ITreeEditorTests : BaseTest
     {
-        private TreeService<int> TreeService;
-
-        [SetUp]
-        public void Setup()
-        {
-            TreeService = new TreeService<int>();
-        }
-
         [Test]
         public void Create([Random(-100, 100, 2)] int num)
         {
-            var tree = TreeService.Create(num);
+            var tree = Service.Create(num);
 
             Assert.That(tree, Is.Not.Null);
             Assert.That(tree.Left, Is.Null);
@@ -35,8 +27,8 @@ namespace BinaryTreeTests
         public void Append([Random(-100, 100, 2)] int num,
             [Values(Position.Left, Position.Right)] Position position)
         {
-            var tree = TreeService.Create(123);
-            Assert.That(TreeService.Append(tree, position, num), Is.EqualTo(tree));
+            var tree = Service.Create(123);
+            Assert.That(Service.Append(tree, position, num), Is.EqualTo(tree));
 
             var correctSubNode = position == Position.Left ? tree.Left : tree.Right;
             var otherSubNode = position == Position.Left ? tree.Right : tree.Left;
@@ -51,9 +43,9 @@ namespace BinaryTreeTests
         public void DoubleAppend([Random(-100, 100, 2)] int num,
             [Values(Position.Left, Position.Right)] Position position)
         {
-            var tree = TreeService.Create(123);
-            Assert.That(TreeService.Append(tree, position, num), Is.EqualTo(tree));
-            Assert.That(() => TreeService.Append(tree, position, num), Throws.InstanceOf<InvalidOperationException>());
+            var tree = Service.Create(123);
+            Assert.That(Service.Append(tree, position, num), Is.EqualTo(tree));
+            Assert.That(() => Service.Append(tree, position, num), Throws.InstanceOf<InvalidOperationException>());
         }
 
         [Test]
@@ -62,9 +54,9 @@ namespace BinaryTreeTests
             [Random(-100, 100, 2)] int num2,
             [Values(Position.Left, Position.Right)] Position position2)
         {
-            var tree = TreeService.Create(123);
-            Assert.That(TreeService.Append(tree, position1, num1, 
-                node => TreeService.Append(node, position2, num2)
+            var tree = Service.Create(123);
+            Assert.That(Service.Append(tree, position1, num1, 
+                node => Service.Append(node, position2, num2)
                 ), Is.EqualTo(tree));
 
             var correctSubNode = position1 == Position.Left ? tree.Left : tree.Right;

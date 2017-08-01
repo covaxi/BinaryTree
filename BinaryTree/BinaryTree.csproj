@@ -48,12 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\NinjectBindings.cs" />
     <Compile Include="Classes\Tree.cs" />
+    <Compile Include="Classes\TreeChecker.cs" />
+    <Compile Include="Classes\TreeEditor.cs" />
     <Compile Include="Classes\TreeService.cs" />
+    <Compile Include="Classes\TreeStorage.cs" />
+    <Compile Include="Classes\TreeVisualizer.cs" />
     <Compile Include="Enums\Position.cs" />
     <Compile Include="Interfaces\ITreeChecker.cs" />
     <Compile Include="Interfaces\ITreeEditor.cs" />
+    <Compile Include="Interfaces\ITreeService.cs" />
     <Compile Include="Interfaces\ITreeStorage.cs" />
+    <Compile Include="Interfaces\ITreeVisualizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

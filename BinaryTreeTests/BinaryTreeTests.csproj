@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTest.cs" />
     <Compile Include="ITreeCheckerTests.cs" />
     <Compile Include="ITreeEditorTests.cs" />
     <Compile Include="ITreeStorageTests.cs" />

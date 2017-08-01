@@ -1,52 +1,95 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BinaryTree
 {
-    public class TreeService<T> : ITreeChecker<T>, ITreeEditor<T>, ITreeStorage<T> where T : IComparable<T>
+    public class TreeService<T> : ITreeService<T> where T : IComparable<T>
     {
+        private ITreeChecker<T> checker { get; set; }
+        private ITreeEditor<T> editor { get; set; }
+        private ITreeStorage<T> storage { get; set; }
+        private ITreeVisualizer<T> visualizer { get; set; }
+
+        [Inject]
+        public TreeService(ITreeChecker<T> checker, ITreeEditor<T> editor,
+            ITreeStorage<T> storage, ITreeVisualizer<T> visualizer)
+        {
+            this.checker = checker;
+            this.editor = editor;
+            this.storage = storage;
+            this.visualizer = visualizer;
+        }
+
         public Tree<T> Append(Tree<T> parent, Position position, T value, Action<Tree<T>> operation = null)
         {
-            Tree<T> node;
-            var parentTree = parent as Tree<T>;
-            if (parentTree == null)
-            {
-                throw new ArgumentException("Unable to work with another ITree implementation");
-            }
-            if (position == Position.Left)
-            {
-                node = parentTree.Left = new Tree<T>(value);
-            }
-            else
-            {
-                node = parentTree.Right = new Tree<T>(value);
-            }
-            operation?.Invoke(node);
-            return parent;
+            return editor.Append(parent, position, value, operation);
         }
 
         public Tree<T> Create(T value)
         {
-            return new Tree<T>(value);
+            return editor.Create(value);
         }
 
         public bool IsSearchTree(Tree<T> tree)
         {
-            return tree.IsSearch;
+            return checker.IsSearchTree(tree);
         }
 
         public Tree<T> Load(Stream stream)
         {
-            throw new NotImplementedException();
+            return storage.Load(stream);
         }
 
         public Stream Save(Tree<T> tree)
         {
-            throw new NotImplementedException();
+            return storage.Save(tree);
         }
+
+        public string Show(Tree<T> tree)
+        {
+            return visualizer.Show(tree);
+        }
+    }
+
+    public static class TreeService
+    {
+        static volatile StandardKernel kernel;
+        static object lockObject = new object();
+
+        /// <summary>
+        /// Configure dependency injections
+        /// </summary>
+        static void Configure()
+        {
+            if (kernel == null)
+            {
+                lock(lockObject)
+                {
+                    if (kernel == null)
+                    {
+                        kernel = new StandardKernel();
+                        kernel.Load<NinjectBindings>();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get an IService instance with a selected type parameter
+        /// </summary>
+        /// <typeparam name="T">The type to use</typeparam>
+        /// <returns>IService instance with a selected type parameter</returns>
+        public static ITreeService<T> Get<T>() where T : IComparable<T>
+        {
+            Configure();
+            return kernel.Get<ITreeService<T>>();
+        }
+
     }
 }
