@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace BinaryTreeTests
 {
+    //TODO: Incinirate this later
     [TestFixture]
     public class NunitIntegrationTests
     {
         [TestCase]
         public void NunitInVs()
         {
-            Assert.True(true, "NUnit is not Working inside Visual Studio");
+            Assert.That(true, Is.True);
         }
     }
 }
