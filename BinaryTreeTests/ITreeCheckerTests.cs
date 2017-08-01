@@ -11,15 +11,21 @@ namespace BinaryTreeTests
     [TestFixture]
     class ITreeCheckerTests : BaseTest
     {
+        [Test]
+        public void TestNullArguments()
+        {
+            Assert.That(() => Service.IsSearchTree(null), Throws.ArgumentNullException);
+        }
+
         //[Test]
         public void CheckSearch(
             [Random(-39, 39, 2)] int num1,
             [Random(-100, -40, 2)] int num2,
             [Random(40, 100, 2)] int num3)
         {
-            var tree = Service.Append(Service.Append(
-                Service.Create(num1), Position.Left, num2),
-                Position.Right, num3);
+            var tree = Service.Create(num1);
+            Service.Append(tree, Position.Left, num2);
+            Service.Append(tree, Position.Right, num3);
 
             Assert.That(Service.IsSearchTree(tree), Is.True);
         }
@@ -30,9 +36,9 @@ namespace BinaryTreeTests
             [Random(-39, 39, 2)] int num2,
             [Random(40, 100, 2)] int num3)
         {
-            var tree = Service.Append(Service.Append(
-                Service.Create(num1), Position.Left, num2),
-                Position.Right, num3);
+            var tree = Service.Create(num1);
+            Service.Append(tree, Position.Left, num2);
+            Service.Append(tree, Position.Right, num3);
 
             Assert.That(Service.IsSearchTree(tree), Is.False);
         }
@@ -43,9 +49,9 @@ namespace BinaryTreeTests
             [Random(40, 100, 2)] int num2,
             [Random(-100, -40, 2)] int num3)
         {
-            var tree = Service.Append(Service.Append(
-                Service.Create(num1), Position.Left, num2),
-                Position.Right, num3);
+            var tree = Service.Create(num1);
+            Service.Append(tree, Position.Left, num2);
+            Service.Append(tree, Position.Right, num3);
 
             Assert.That(Service.IsSearchTree(tree), Is.False);
         }

@@ -13,6 +13,12 @@ namespace BinaryTreeTests
     public class ITreeEditorTests : BaseTest
     {
         [Test]
+        public void TestNullArguments()
+        {
+            Assert.That(() => Service.Append(null, Position.Left, 1), Throws.ArgumentNullException);
+        }
+
+        [Test]
         public void Create([Random(-100, 100, 2)] int num)
         {
             var tree = Service.Create(num);
@@ -28,7 +34,7 @@ namespace BinaryTreeTests
             [Values(Position.Left, Position.Right)] Position position)
         {
             var tree = Service.Create(123);
-            Assert.That(Service.Append(tree, position, num), Is.EqualTo(tree));
+            var node = Service.Append(tree, position, num);
 
             var correctSubNode = position == Position.Left ? tree.Left : tree.Right;
             var otherSubNode = position == Position.Left ? tree.Right : tree.Left;
@@ -44,7 +50,7 @@ namespace BinaryTreeTests
             [Values(Position.Left, Position.Right)] Position position)
         {
             var tree = Service.Create(123);
-            Assert.That(Service.Append(tree, position, num), Is.EqualTo(tree));
+            var node = Service.Append(tree, position, num);
             Assert.That(() => Service.Append(tree, position, num), Throws.InstanceOf<InvalidOperationException>());
         }
 
@@ -55,9 +61,8 @@ namespace BinaryTreeTests
             [Values(Position.Left, Position.Right)] Position position2)
         {
             var tree = Service.Create(123);
-            Assert.That(Service.Append(tree, position1, num1, 
-                node => Service.Append(node, position2, num2)
-                ), Is.EqualTo(tree));
+            var node = Service.Append(tree, position1, num1);
+            Service.Append(node, position2, num2);
 
             var correctSubNode = position1 == Position.Left ? tree.Left : tree.Right;
             var otherSubNode = position1 == Position.Left ? tree.Right : tree.Left;

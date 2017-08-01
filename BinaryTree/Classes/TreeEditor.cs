@@ -8,7 +8,7 @@ namespace BinaryTree
 {
     internal class TreeEditor<T> : ITreeEditor<T> where T : IComparable<T>
     {
-        public Tree<T> Append(Tree<T> parent, Position position, T value, Action<Tree<T>> operation = null)
+        public Tree<T> Append(Tree<T> parent, Position position, T value)
         {
             Helpers.Check(parent, nameof(parent));
             Tree<T> node;
@@ -25,8 +25,7 @@ namespace BinaryTree
             {
                 node = parentTree.Right = new Tree<T>(value);
             }
-            operation?.Invoke(node);
-            return parent;
+            return node;
         }
 
         public Tree<T> Create(T value)

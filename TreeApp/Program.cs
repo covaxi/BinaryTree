@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ManyConsole;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,10 @@ namespace TreeApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
+            var commands = ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
+            return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
         }
     }
 }

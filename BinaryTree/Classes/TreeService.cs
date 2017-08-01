@@ -26,11 +26,11 @@ namespace BinaryTree
             this.visualizer = Helpers.Check(visualizer, nameof(visualizer));
         }
 
-        public Tree<T> Append(Tree<T> parent, Position position, T value, Action<Tree<T>> operation = null)
+        public Tree<T> Append(Tree<T> parent, Position position, T value)
         {
             Helpers.Check(parent, nameof(parent));
             Helpers.Check(value, nameof(value));
-            return editor.Append(parent, position, value, operation);
+            return editor.Append(parent, position, value);
         }
 
         public Tree<T> Create(T value)

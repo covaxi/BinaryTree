@@ -13,15 +13,29 @@ namespace BinaryTreeTests
     class ITreeStorageTests : BaseTest
     {
         [Test]
+        public void TestNullArguments()
+        {
+            var tree = Service.Create(1);
+
+            Assert.That(() => Service.Save(null, tree), Throws.ArgumentNullException);
+            var file = Path.GetTempFileName();
+            using (var stream = File.OpenWrite(file))
+            {
+                Assert.That(() => Service.Save(stream, null), Throws.ArgumentNullException);
+            }
+            Assert.That(() => Service.Load(null), Throws.ArgumentNullException);
+        }
+
+        [Test]
         public void CheckSaveAndLoad(
             [Random(-100, 100, 2)] int num1,
             [Random(-100, 100, 2)] int num2,
             [Random(-100, 100, 2)] int num3)
         {
-            
-            var tree = Service.Append(Service.Append(
-                Service.Create(num1), Position.Left, num2),
-                Position.Right, num3);
+
+            var tree = Service.Create(num1);
+            Service.Append(tree, Position.Left, num2);
+            Service.Append(tree, Position.Right, num3);
             var file = Path.GetTempFileName();
             using (var stream = File.OpenWrite(file))
             {
@@ -38,7 +52,6 @@ namespace BinaryTreeTests
             Assert.That(expected.Value, Is.EqualTo(tree.Value));
             Assert.That(expected.Left.Value, Is.EqualTo(tree.Left.Value));
             Assert.That(expected.Right.Value, Is.EqualTo(tree.Right.Value));
-
         }
     }
 }

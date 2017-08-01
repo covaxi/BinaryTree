@@ -28,6 +28,6 @@ namespace BinaryTree
         /// <param name="value">Value for the child node</param>
         /// <param name="operation">An operation to perform on an added node</param>
         /// <returns>A tree with added child node</returns>
-        Tree<T> Append(Tree<T> parent, Position position, T value, Action<Tree<T>> operation = null);
+        Tree<T> Append(Tree<T> parent, Position position, T value);
     }
 }

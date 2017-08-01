@@ -11,15 +11,20 @@ namespace BinaryTreeTests
     class ITreeTraverserTests : BaseTest
     {
         [Test]
+        public void TestNullArguments()
+        {
+            Assert.That(() => Service.Traverse(null), Throws.ArgumentNullException);
+        }
+
+        [Test]
         public void CheckTraverse(
             [Random(-100, 100, 2)] int num1,
             [Random(-100, 100, 2)] int num2,
             [Random(-100, 100, 2)] int num3)
         {
-
-            var tree = Service.Append(Service.Append(
-                Service.Create(num1), Position.Left, num2),
-                Position.Right, num3);
+            var tree = Service.Create(num1);
+            Service.Append(tree, Position.Left, num2);
+            Service.Append(tree, Position.Right, num3);
 
             CollectionAssert.AreEqual(
                 Service.Traverse(tree).ToList(),
