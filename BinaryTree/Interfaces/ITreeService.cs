@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace BinaryTree
 {
+    /// <summary>
+    /// An interface to deal with a binary tree
+    /// </summary>
+    /// <typeparam name="T">A tree value type</typeparam>
     public interface ITreeService<T> : ITreeChecker<T>, ITreeEditor<T>, 
         ITreeStorage<T>, ITreeVisualizer<T> where T : IComparable<T>
     {

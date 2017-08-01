@@ -56,6 +56,7 @@
     <Compile Include="Classes\TreeStorage.cs" />
     <Compile Include="Classes\TreeVisualizer.cs" />
     <Compile Include="Enums\Position.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Interfaces\ITreeChecker.cs" />
     <Compile Include="Interfaces\ITreeEditor.cs" />
     <Compile Include="Interfaces\ITreeService.cs" />

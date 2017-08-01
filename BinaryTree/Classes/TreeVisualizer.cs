@@ -10,11 +10,13 @@ namespace BinaryTree
     {
         public string Show(Tree<T> tree)
         {
+            Helpers.Check(tree, nameof(tree));
             return "";
         }
 
         List<TreeNode> Convert(Tree<T> tree)
         {
+            Helpers.Check(tree, nameof(tree));
             ConvertNode(null, tree, 0);
             Nodes.Reverse();
             return null;
@@ -22,6 +24,7 @@ namespace BinaryTree
 
         TreeNode ConvertNode(TreeNode parent, Tree<T> tree, int level)
         {
+            Helpers.Check(tree, nameof(tree));
             var result = new TreeNode
             {
                 Level = level,

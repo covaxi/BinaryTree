@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BinaryTree
 {
-    public class TreeService<T> : ITreeService<T> where T : IComparable<T>
+    internal class TreeService<T> : ITreeService<T> where T : IComparable<T>
     {
         private ITreeChecker<T> checker { get; set; }
         private ITreeEditor<T> editor { get; set; }
@@ -20,39 +20,46 @@ namespace BinaryTree
         public TreeService(ITreeChecker<T> checker, ITreeEditor<T> editor,
             ITreeStorage<T> storage, ITreeVisualizer<T> visualizer)
         {
-            this.checker = checker;
-            this.editor = editor;
-            this.storage = storage;
-            this.visualizer = visualizer;
+            this.checker = Helpers.Check(checker, nameof(checker));
+            this.editor = Helpers.Check(editor, nameof(editor));
+            this.storage = Helpers.Check(storage, nameof(storage));
+            this.visualizer = Helpers.Check(visualizer, nameof(visualizer));
         }
 
         public Tree<T> Append(Tree<T> parent, Position position, T value, Action<Tree<T>> operation = null)
         {
+            Helpers.Check(parent, nameof(parent));
+            Helpers.Check(value, nameof(value));
             return editor.Append(parent, position, value, operation);
         }
 
         public Tree<T> Create(T value)
         {
+            Helpers.Check(value, nameof(value));
             return editor.Create(value);
         }
 
         public bool IsSearchTree(Tree<T> tree)
         {
+            Helpers.Check(tree, nameof(tree));
             return checker.IsSearchTree(tree);
         }
 
         public Tree<T> Load(Stream stream)
         {
+            Helpers.Check(stream, nameof(stream));
             return storage.Load(stream);
         }
 
         public Stream Save(Tree<T> tree)
         {
+            Helpers.Check(tree, nameof(tree));
             return storage.Save(tree);
         }
 
         public string Show(Tree<T> tree)
         {
+            Helpers.Check(tree, nameof(tree));
             return visualizer.Show(tree);
         }
     }

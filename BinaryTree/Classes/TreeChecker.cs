@@ -10,6 +10,7 @@ namespace BinaryTree
     {
         public bool IsSearchTree(Tree<T> tree)
         {
+            Helpers.Check(tree, nameof(tree));
             return tree.IsSearch;
         }
     }

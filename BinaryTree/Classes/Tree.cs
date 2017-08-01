@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace BinaryTree
     /// A binary tree.
     /// </summary>
     /// <typeparam name="T">A type of a node or leaf value</typeparam>
-    public class Tree<T> where T : IComparable<T>
+    public class Tree<T> : ISerializable where T : IComparable<T>
     {
         private T value;
         private Tree<T> left;
@@ -18,7 +19,26 @@ namespace BinaryTree
 
         internal Tree(T value)
         {
-            this.value = value;
+            this.value = Helpers.Check(value, nameof(value));
+        }
+
+        /// <summary>
+        /// Returns true if this tree is a binary search tree
+        /// </summary>
+        internal bool IsSearch
+        {
+            get
+            {
+                return (left == null || left.Value.CompareTo(Value) == -1 && left.IsSearch) &&
+                    (right == null || right.Value.CompareTo(Value) == 1 && right.IsSearch);
+            }
+        }
+
+        internal Tree(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.value = (T)info.GetValue("value", typeof(T));
+            this.left = (Tree<T>)info.GetValue("left", typeof(Tree<T>));
+            this.right = (Tree<T>)info.GetValue("right", typeof(Tree<T>));
         }
 
         /// <summary>
@@ -64,16 +84,11 @@ namespace BinaryTree
         /// </summary>
         public bool IsLeaf => left == null && right == null;
 
-        /// <summary>
-        /// Returns true if this tree is a binary search tree
-        /// </summary>
-        internal bool IsSearch
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            get
-            {
-                return (left == null || left.Value.CompareTo(Value) == -1 && left.IsSearch) &&
-                    (right == null || right.Value.CompareTo(Value) == 1 && right.IsSearch);
-            }
+            info.AddValue("value", value, typeof(T));
+            info.AddValue("left", left, typeof(Tree<T>));
+            info.AddValue("right", right, typeof(Tree<T>));
         }
     }
 }

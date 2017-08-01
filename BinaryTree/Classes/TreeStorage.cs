@@ -11,11 +11,13 @@ namespace BinaryTree
     {
         public Tree<T> Load(Stream stream)
         {
+            Helpers.Check(stream, nameof(stream));
             throw new NotImplementedException();
         }
 
         public Stream Save(Tree<T> tree)
         {
+            Helpers.Check(tree, nameof(tree));
             throw new NotImplementedException();
         }
     }

@@ -10,6 +10,7 @@ namespace BinaryTree
     {
         public Tree<T> Append(Tree<T> parent, Position position, T value, Action<Tree<T>> operation = null)
         {
+            Helpers.Check(parent, nameof(parent));
             Tree<T> node;
             var parentTree = parent as Tree<T>;
             if (parentTree == null)
@@ -31,16 +32,6 @@ namespace BinaryTree
         public Tree<T> Create(T value)
         {
             return new Tree<T>(value);
-        }
-
-        public string Show(Tree<T> tree)
-        {
-            var nodes = new List<Tuple<string, int>>();
-
-            nodes.Add(Tuple.Create(tree.Value.ToString(), 0));
-
-
-            return "";
         }
     }
 }
