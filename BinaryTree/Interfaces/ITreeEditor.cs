@@ -10,7 +10,7 @@ namespace BinaryTree
     /// An interface for creating or modifying a binary tree
     /// <typeparamref name="T">A type of a tree node value</typeparamref>
     /// </summary>
-    public interface ITreeEditor<T>
+    public interface ITreeEditor<T> where T : IComparable<T>
     {
         /// <summary>
         /// Creates a tree with a single node
@@ -18,7 +18,7 @@ namespace BinaryTree
         /// <param name="value">Value for the node</param>
         /// <param name="operation">An operation to perform on a node</param>
         /// <returns></returns>
-        ITree<T> Create(T value);
+        Tree<T> Create(T value);
 
         /// <summary>
         /// Appends a node to a tree. Throws an IncorrectOperation exception if a parent tree already has a node on the selected position.
@@ -28,14 +28,6 @@ namespace BinaryTree
         /// <param name="value">Value for the child node</param>
         /// <param name="operation">An operation to perform on an added node</param>
         /// <returns>A tree with added child node</returns>
-        ITree<T> Append(ITree<T> parent, Position position, T value, Action<ITree<T>> operation = null);
-
-        /// <summary>
-        /// Removes a whole subtree of a parent node on a selected position.
-        /// </summary>
-        /// <param name="parent">A parent node</param>
-        /// <param name="position">Position of a subtree to remove</param>
-        /// <returns></returns>
-        ITree<T> Remove(ITree<T> parent, Position position);
+        Tree<T> Append(Tree<T> parent, Position position, T value, Action<Tree<T>> operation = null);
     }
 }

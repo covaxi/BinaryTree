@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BinaryTree
 {
-    public class TreeService<T> : ITreeChecker<T>, ITreeEditor<T>, ITreeStorage<T>
+    public class TreeService<T> : ITreeChecker<T>, ITreeEditor<T>, ITreeStorage<T> where T : IComparable<T>
     {
-        public ITree<T> Append(ITree<T> parent, Position position, T value, Action<ITree<T>> operation = null)
+        public Tree<T> Append(Tree<T> parent, Position position, T value, Action<Tree<T>> operation = null)
         {
-            ITree<T> node;
+            Tree<T> node;
             var parentTree = parent as Tree<T>;
             if (parentTree == null)
             {
@@ -29,32 +29,22 @@ namespace BinaryTree
             return parent;
         }
 
-        public ITree<T> Create(T value)
+        public Tree<T> Create(T value)
         {
             return new Tree<T>(value);
         }
 
-        public bool IsBalancedTree(ITree<T> tree)
+        public bool IsSearchTree(Tree<T> tree)
+        {
+            return tree.IsSearch;
+        }
+
+        public Tree<T> Load(Stream stream)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsSearchTree(ITree<T> tree)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITree<T> Load(Stream stream)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITree<T> Remove(ITree<T> parent, Position position)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Stream Save(ITree<T> tree)
+        public Stream Save(Tree<T> tree)
         {
             throw new NotImplementedException();
         }

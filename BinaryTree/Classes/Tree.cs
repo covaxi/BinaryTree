@@ -6,20 +6,30 @@ using System.Threading.Tasks;
 
 namespace BinaryTree
 {
-    internal class Tree<T> : ITree<T>
+    /// <summary>
+    /// A binary tree.
+    /// </summary>
+    /// <typeparam name="T">A type of a node or leaf value</typeparam>
+    public class Tree<T> where T : IComparable<T>
     {
         private T value;
-        private ITree<T> left;
-        private ITree<T> right;
+        private Tree<T> left;
+        private Tree<T> right;
 
         internal Tree(T value)
         {
             this.value = value;
         }
 
+        /// <summary>
+        /// A value of the node
+        /// </summary>
         public T Value => value;
 
-        public ITree<T> Left
+        /// <summary>
+        /// Left subtree
+        /// </summary>
+        public Tree<T> Left
         {
             get => left;
             internal set
@@ -33,7 +43,10 @@ namespace BinaryTree
             }
         }
 
-        public ITree<T> Right
+        /// <summary>
+        /// Right subtree
+        /// </summary>
+        public Tree<T> Right
         {
             get => right;
             internal set
@@ -46,6 +59,21 @@ namespace BinaryTree
             }
         }
 
+        /// <summary>
+        /// Returns true if this node is a leaf
+        /// </summary>
         public bool IsLeaf => left == null && right == null;
+
+        /// <summary>
+        /// Returns true if this tree is a binary search tree
+        /// </summary>
+        internal bool IsSearch
+        {
+            get
+            {
+                return (left == null || left.Value.CompareTo(Value) == -1 && left.IsSearch) &&
+                    (right == null || right.Value.CompareTo(Value) == 1 && right.IsSearch);
+            }
+        }
     }
 }
