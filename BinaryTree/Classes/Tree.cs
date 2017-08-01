@@ -16,6 +16,7 @@ namespace BinaryTree
         private T value;
         private Tree<T> left;
         private Tree<T> right;
+        private Tree() { }
 
         internal Tree(T value)
         {

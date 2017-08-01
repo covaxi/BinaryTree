@@ -16,9 +16,9 @@ namespace BinaryTree
         /// <summary>
         /// Save a tree to a stream
         /// </summary>
-        /// <param name="tree">A tree to save</param>
-        /// <returns>A stream with the tree</returns>
-        Stream Save(Tree<T> tree);
+        /// <param name="tree">The tree to save</param>
+        /// <param name="stream">The stream</param>
+        void Save(Stream stream, Tree<T> tree);
 
         /// <summary>
         /// Load a tree from a stream

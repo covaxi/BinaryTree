@@ -14,11 +14,11 @@ namespace BinaryTree
         private ITreeChecker<T> checker { get; set; }
         private ITreeEditor<T> editor { get; set; }
         private ITreeStorage<T> storage { get; set; }
-        private ITreeVisualizer<T> visualizer { get; set; }
+        private ITreeTraverser<T> visualizer { get; set; }
 
         [Inject]
         public TreeService(ITreeChecker<T> checker, ITreeEditor<T> editor,
-            ITreeStorage<T> storage, ITreeVisualizer<T> visualizer)
+            ITreeStorage<T> storage, ITreeTraverser<T> visualizer)
         {
             this.checker = Helpers.Check(checker, nameof(checker));
             this.editor = Helpers.Check(editor, nameof(editor));
@@ -51,16 +51,17 @@ namespace BinaryTree
             return storage.Load(stream);
         }
 
-        public Stream Save(Tree<T> tree)
+        public void Save(Stream stream, Tree<T> tree)
         {
+            Helpers.Check(stream, nameof(stream));
             Helpers.Check(tree, nameof(tree));
-            return storage.Save(tree);
+            storage.Save(stream, tree);
         }
 
-        public string Show(Tree<T> tree)
+        public IEnumerable<T> Traverse(Tree<T> tree)
         {
             Helpers.Check(tree, nameof(tree));
-            return visualizer.Show(tree);
+            return visualizer.Traverse(tree);
         }
     }
 

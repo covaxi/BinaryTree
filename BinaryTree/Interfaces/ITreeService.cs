@@ -11,7 +11,7 @@ namespace BinaryTree
     /// </summary>
     /// <typeparam name="T">A tree value type</typeparam>
     public interface ITreeService<T> : ITreeChecker<T>, ITreeEditor<T>, 
-        ITreeStorage<T>, ITreeVisualizer<T> where T : IComparable<T>
+        ITreeStorage<T>, ITreeTraverser<T> where T : IComparable<T>
     {
     }
 }

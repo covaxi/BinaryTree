@@ -14,7 +14,7 @@ namespace BinaryTree
             Bind(typeof(ITreeChecker<>)).To(typeof(TreeChecker<>));
             Bind(typeof(ITreeEditor<>)).To(typeof(TreeEditor<>));
             Bind(typeof(ITreeStorage<>)).To(typeof(TreeStorage<>));
-            Bind(typeof(ITreeVisualizer<>)).To(typeof(TreeVisualizer<>));
+            Bind(typeof(ITreeTraverser<>)).To(typeof(TreeTraverser<>));
             Bind(typeof(ITreeService<>)).To(typeof(TreeService<>));
         }
     }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BinaryTree
 {
-    public interface ITreeVisualizer<T> where T : IComparable<T>
+    public interface ITreeTraverser<T> where T : IComparable<T>
     {
         /// <summary>
-        /// Displays a tree in a text string
+        /// Gets all nodes containing in a tree level by level
         /// </summary>
         /// <param name="tree">The tree</param>
-        /// <returns>A text representation of the tree</returns>
-        string Show(Tree<T> tree);
+        /// <returns>List of nodes in a tree</returns>
+        IEnumerable<T> Traverse(Tree<T> tree);
     }
 }
