@@ -22,6 +22,13 @@ namespace BinaryTree
             this.value = Helpers.Check(value, nameof(value));
         }
 
+        internal Tree(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.value = (T)info.GetValue("value", typeof(T));
+            this.left = (Tree<T>)info.GetValue("left", typeof(Tree<T>));
+            this.right = (Tree<T>)info.GetValue("right", typeof(Tree<T>));
+        }
+
         /// <summary>
         /// Returns true if this tree is a binary search tree
         /// </summary>
@@ -32,13 +39,6 @@ namespace BinaryTree
                 return (left == null || left.Value.CompareTo(Value) == -1 && left.IsSearch) &&
                     (right == null || right.Value.CompareTo(Value) == 1 && right.IsSearch);
             }
-        }
-
-        internal Tree(SerializationInfo info, StreamingContext ctxt)
-        {
-            this.value = (T)info.GetValue("value", typeof(T));
-            this.left = (Tree<T>)info.GetValue("left", typeof(Tree<T>));
-            this.right = (Tree<T>)info.GetValue("right", typeof(Tree<T>));
         }
 
         /// <summary>
