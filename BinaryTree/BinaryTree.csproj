@@ -48,7 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Position.cs" />
     <Compile Include="Interfaces\ITree.cs" />
+    <Compile Include="Interfaces\ITreeChecker.cs" />
+    <Compile Include="Interfaces\ITreeEditor.cs" />
+    <Compile Include="Interfaces\ITreeStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

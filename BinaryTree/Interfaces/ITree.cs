@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BinaryTree.Interfaces
+namespace BinaryTree
 {
+    /// <summary>
+    /// An interface defining a binary tree.
+    /// </summary>
+    /// <typeparam name="T">A type of a node or leaf value</typeparam>
     public interface ITree<T>
     {
         /// <summary>
